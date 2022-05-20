@@ -1,82 +1,102 @@
-import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/link'
+import { getDatabase } from '../lib/notion'
+import { Project, toProjects } from '../models'
 
-export default function Home() {
+export const databaseProjectsId = process.env.NOTION_DATABASE_PROJECTS_ID || ''
+
+export default function Home({ projects }: Props) {
+  console.log(projects)
+
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center py-2">
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center">
-        <h1 className="text-6xl font-bold">
-          Welcome to{' '}
-          <a className="text-blue-600" href="https://nextjs.org">
-            arifisme.dev
-          </a>
+    <div>
+      <div className="mb-[50px] sm:mb-[90px]">
+        <h1 className="mb-3 text-[26px] font-bold tracking-[-.3px] sm:mb-[15px] sm:text-[40px]">
+          Hi, my name is Arif iskandar.
         </h1>
-
-        <p className="mt-3 text-2xl">
-          Get started by editing{' '}
-          <code className="rounded-md bg-gray-100 p-3 font-mono text-lg">
-            pages/index.tsx
-          </code>
+        <p className="mb-[30px] text-[17px] font-medium leading-6 text-text text-opacity-80 sm:text-[19px]">
+          I am an enthusiastic software developer based in Medan, Indonesia. I
+          love to code and make it more simple, try something new, and learn
+          more. Currently as Chief Technology Officer at{' '}
+          <a href="https://dsociety.id" target="_blank" className="text-brand">
+            dSociety
+          </a>
+          , a startup to help students prepare for their tests.
         </p>
-
-        <div className="mt-6 flex max-w-4xl flex-wrap items-center justify-around sm:w-full">
-          <a
-            href="https://nextjs.org/docs"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Documentation &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Find in-depth information about Next.js features and API.
-            </p>
+        <Link href="/about">
+          <a>
+            <button
+              className="inline-flex items-center rounded-full bg-brand/20 py-[10px] px-[18px] text-base font-bold text-brand transition-all ease-out hover:bg-brand/30 focus:bg-brand/30 "
+              type="button"
+            >
+              More about me
+            </button>
           </a>
+        </Link>
+      </div>
 
-          <a
-            href="https://nextjs.org/learn"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Learn &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Learn about Next.js in an interactive course with quizzes!
-            </p>
-          </a>
+      <h2>Selected Projects</h2>
 
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Examples &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Discover and deploy boilerplate example Next.js projects.
-            </p>
+      {projects.map(({ id, cover, url, title, description }) => (
+        <div key={id} className="mb-10 w-full sm:mb-[75px]">
+          <a href={url} target="_blank">
+            <div className="relative mb-[20px] overflow-hidden rounded-[15px] bg-black pb-[50%] md:mx-[-25px]">
+              <div className="absolute inset-0 flex h-full w-full flex-col justify-end p-[25px] pb-0">
+                <div className="block">
+                  <Image
+                    src={cover || '/vercer.svg'}
+                    layout="responsive"
+                    width="100%"
+                    height="100%"
+                    objectFit="contain"
+                    objectPosition="bottom"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
           </a>
-
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className="mt-6 w-96 rounded-xl border p-6 text-left hover:text-blue-600 focus:text-blue-600"
-          >
-            <h3 className="text-2xl font-bold">Deploy &rarr;</h3>
-            <p className="mt-4 text-xl">
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          <h3 className="sm:text-[28px font-bold] mb-[5px] text-[26px]">
+            {title}
+          </h3>
+          <p className="mb-2 text-[16px] opacity-80 sm:mb-3 sm:text-[18px]">
+            {description}
+          </p>
+          <div className="flex flex-col gap-1 sm:flex-row sm:gap-[initial]">
+            <a
+              href={url}
+              className="inline-flex items-center text-base text-brand/60 transition-colors ease-out sm:text-[18px]"
+            >
+              Visit {url.replace(/^https?:\/\//, '')}{' '}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="ml-2 h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+                <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
+              </svg>
+            </a>
+          </div>
         </div>
-      </main>
-
-      <footer className="flex h-24 w-full items-center justify-center border-t">
-        <a
-          className="flex items-center justify-center"
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="ml-2 h-4" />
-        </a>
-      </footer>
+      ))}
     </div>
   )
+}
+
+Home.title = 'It`s me Arif Iskandar - Software Developer'
+
+interface Props {
+  projects: Array<Project>
+}
+
+export const getStaticProps = async () => {
+  const projects = await getDatabase(databaseProjectsId)
+  return {
+    props: {
+      projects: toProjects(projects),
+    },
+    revalidate: 1,
+  }
 }
