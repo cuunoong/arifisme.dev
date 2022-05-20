@@ -3,7 +3,7 @@ import type { AppProps } from 'next/app'
 import Header from '../components/header'
 
 function MyApp({ Component, pageProps }: AppProps<{ title: string }>) {
-  const title = Component.title || 'It`s me Arif Iskandar - Software Developer'
+  const title = 'It`s me Arif Iskandar - Software Developer'
   return (
     <div className="container font-gt-walsheim-pro antialiased">
       <Header title={title} />
