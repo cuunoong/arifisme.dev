@@ -1,3 +1,54 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  font-style: normal;
+  font-weight: 700;
+  font-display: block;
+  src: url('../public/fonts/GTWalsheimPro-Bold.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  font-style: normal;
+  font-weight: 500;
+  font-display: block;
+  src: url('../public/fonts/GTWalsheimPro-Medium.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'GT Walsheim Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('../public/fonts/GTWalsheimPro-Regular.woff2') format('woff2');
+}
+*,
+::before,
+::after {
+  --brand: #00aaff;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  @apply bg-bg text-text;
+}
+
+.container {
+  @apply mx-auto max-w-page px-[15px] sm:px-[30px];
+}
+
+h2 {
+  @apply mb-[50px] text-[28px] font-extrabold tracking-[-.3px];
+}
+
+@media (min-width: 480px) {
+  h2 {
+    @apply mb-[55px] text-[32px];
+  }
+}
