@@ -6,6 +6,7 @@ export interface Project {
   cover: string | null
   url: string
   description: string
+  tags: Array<string>
 }
 
 enum coverType {
@@ -26,6 +27,11 @@ export const toProjects = (params: any): Array<Project> => {
         Name: { title: { plain_text: string }[] }
         Url: { url: string }
         Description: { rich_text: { plain_text: string }[] }
+        Tags: {
+          multi_select: Array<{
+            name: string
+          }>
+        }
       }
     }): Project => {
       return {
@@ -34,6 +40,7 @@ export const toProjects = (params: any): Array<Project> => {
         title: param.properties.Name.title[0].plain_text,
         url: param.properties.Url.url,
         description: param.properties.Description.rich_text[0].plain_text,
+        tags: param.properties.Tags.multi_select.map(({ name }) => name),
       }
     }
   )

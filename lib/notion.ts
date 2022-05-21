@@ -4,9 +4,22 @@ const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 })
 
-export const getDatabase = async (databaseId: string) => {
+export const getDatabase = async (
+  databaseId: string,
+  sorts?: (
+    | {
+        property: string
+        direction: 'ascending' | 'descending'
+      }
+    | {
+        timestamp: 'created_time' | 'last_edited_time'
+        direction: 'ascending' | 'descending'
+      }
+  )[]
+) => {
   const response = await notion.databases.query({
     database_id: databaseId,
+    sorts,
   })
   return response.results
 }
