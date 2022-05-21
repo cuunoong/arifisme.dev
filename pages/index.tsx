@@ -2,19 +2,25 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getDatabase } from '../lib/notion'
 import { Project, toProjects } from '../models'
-
+import { motion } from 'framer-motion'
 export const databaseProjectsId = process.env.NOTION_DATABASE_PROJECTS_ID || ''
 
 export default function Home({ projects }: Props) {
-  console.log(projects)
-
   return (
     <div>
       <div className="mb-[50px] sm:mb-[90px]">
-        <h1 className="mb-3 text-[26px] font-bold tracking-[-.3px] sm:mb-[15px] sm:text-[40px]">
-          Hi, my name is Arif iskandar.
-        </h1>
-        <p className="mb-[30px] text-[17px] font-medium leading-6 text-text text-opacity-80 sm:text-[19px]">
+        <motion.h1
+          className="mb-3 text-[26px] font-bold tracking-[-.3px] sm:mb-[15px] sm:text-[40px]"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+        >
+          Hi there, it's me Arif iskandar.
+        </motion.h1>
+        <motion.p
+          className="mb-[30px] text-[17px] font-medium leading-6 text-text text-opacity-80 sm:text-[19px]"
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+        >
           I am an enthusiastic software developer based in Medan, Indonesia. I
           love to code and make it more simple, try something new, and learn
           more. Currently as Chief Technology Officer at{' '}
@@ -22,23 +28,35 @@ export default function Home({ projects }: Props) {
             dSociety
           </a>
           , a startup to help students prepare for their tests.
-        </p>
+        </motion.p>
         <Link href="/about">
           <a>
-            <button
+            <motion.button
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
               className="inline-flex items-center rounded-full bg-brand/20 py-[10px] px-[18px] text-base font-bold text-brand transition-all ease-out hover:bg-brand/30 focus:bg-brand/30 "
               type="button"
             >
               More about me
-            </button>
+            </motion.button>
           </a>
         </Link>
       </div>
 
-      <h2>Selected Projects</h2>
+      <motion.h2
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+      >
+        Selected Projects
+      </motion.h2>
 
       {projects.map(({ id, cover, url, title, description }) => (
-        <div key={id} className="mb-10 w-full sm:mb-[75px]">
+        <motion.div
+          key={id}
+          className="mb-10 w-full sm:mb-[75px]"
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+        >
           <a href={url} target="_blank">
             <div className="relative mb-[20px] overflow-hidden rounded-[15px] bg-black pb-[50%] md:mx-[-25px]">
               <div className="absolute inset-0 flex h-full w-full flex-col justify-end p-[25px] pb-0">
@@ -50,7 +68,8 @@ export default function Home({ projects }: Props) {
                     height="100%"
                     objectFit="contain"
                     objectPosition="bottom"
-                    priority
+                    quality={50}
+                    priority={false}
                   />
                 </div>
               </div>
@@ -67,7 +86,7 @@ export default function Home({ projects }: Props) {
               href={url}
               className="inline-flex items-center text-base text-brand/60 transition-colors ease-out sm:text-[18px]"
             >
-              Visit {url.replace(/^https?:\/\//, '')}{' '}
+              Visit {new URL(url).host}{' '}
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="ml-2 h-5 w-5"
@@ -79,7 +98,7 @@ export default function Home({ projects }: Props) {
               </svg>
             </a>
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   )
@@ -92,7 +111,12 @@ interface Props {
 }
 
 export const getStaticProps = async () => {
-  const projects = await getDatabase(databaseProjectsId)
+  const projects = await getDatabase(databaseProjectsId, [
+    {
+      property: 'Published At',
+      direction: 'descending',
+    },
+  ])
   return {
     props: {
       projects: toProjects(projects),
