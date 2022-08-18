@@ -4,6 +4,8 @@ export default {
   defaultOpenGraphImageWidth: 800,
   defaultOpenGraphImageHeight: 600,
   canonical: process.env.NEXT_PUBLIC_APP_URL,
+  description:
+    'bersama saya arif iskandar, seorang software developer yang suka untuk sharing cara membuat aplikasi dalam banyak bahasa pemrograman dan multi platform',
   openGraph: {
     type: 'website',
     locale: 'id_ID',
