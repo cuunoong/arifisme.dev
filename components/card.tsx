@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { LessonData } from '../models/lesson'
+import { LessonData, LessonTag } from '../models/lesson'
 import TagIcon from './tag-icon'
 
 function Card({ lesson }: { lesson: LessonData }) {
@@ -10,8 +10,8 @@ function Card({ lesson }: { lesson: LessonData }) {
         <div className="relative">
           <div className="relative w-full overflow-hidden rounded-2xl pt-[75%]">
             <img
-              src={lesson.image}
-              alt={lesson.title}
+              src={lesson.image as string}
+              alt={lesson.title as string}
               className="absolute inset-0 min-h-full min-w-full object-cover"
             />
           </div>
@@ -21,7 +21,7 @@ function Card({ lesson }: { lesson: LessonData }) {
                 key={index}
                 className="flex h-8 w-8 items-center justify-center rounded-lg bg-white "
               >
-                <TagIcon tag={tag} />
+                <TagIcon tag={tag as LessonTag} />
               </span>
             ))}
           </div>
