@@ -1,7 +1,10 @@
+import { useRouter } from 'next/router'
 import React from 'react'
+import translate from '../utils/translate'
 import Decoration from './icons/decoration'
 
 function About() {
+  const router = useRouter()
   return (
     <section className="relative pt-16" id="about">
       <div className="relative mx-auto  px-6 py-12 md:mt-24 md:max-w-2xl md:px-2 xl:max-w-7xl">
@@ -18,13 +21,9 @@ function About() {
           </h1>
           <div className="flex xl:w-1/3">
             <div className="flex flex-col space-y-8">
+              <p>{translate(router.locale).about[0]}</p>
               <p>
-                I like to code and keep it simple, try something new, and learn
-                more. I think sharing knowledge is the best practice to improve
-                my skills, and I try to do it.
-              </p>
-              <p>
-                I am currently the Chief Technology Officer at{' '}
+                {translate(router.locale).about[1]}{' '}
                 <a
                   className="text-brand"
                   href="https://dsociety.id"
@@ -32,7 +31,7 @@ function About() {
                 >
                   dSociety
                 </a>
-                , a startup to help students prepare for their exams.
+                , {translate(router.locale).about[2]}
               </p>
             </div>
           </div>

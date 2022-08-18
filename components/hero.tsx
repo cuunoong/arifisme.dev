@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import React from 'react'
+import translate from '../utils/translate'
 import Button from './button'
 import IconItem from './icon-item'
 import BookIcon from './icons/book'
@@ -18,20 +19,26 @@ function Hero() {
         {/* Title */}
         <div className="flex flex-col space-y-12 xl:flex-row xl:items-end xl:justify-between xl:space-y-0 xl:px-4">
           <h1 className="flex-1 text-[33.6px] font-light leading-[1.2] md:text-7xl md:leading-[1.2]">
-            <span className="inline-block">Let’s learn</span>{' '}
+            <span className="inline-block">
+              {translate(router.locale).home.hero.title[0]}
+            </span>{' '}
             <BookIcon className="inline-block h-8 w-8 align-middle text-purple md:h-14 md:w-14" />
             <br />
-            <span className="inline-block">to code</span>{' '}
+            <span className="inline-block">
+              {translate(router.locale).home.hero.title[1]}
+            </span>{' '}
             <SubTaskIcon className="inline-block h-8 w-8 align-middle text-brand md:h-14 md:w-14" />
             <br />
-            <span className="inline-block">an application</span>
+            <span className="inline-block">
+              {translate(router.locale).home.hero.title[2]}
+            </span>
           </h1>
           <div className="flex max-w-[374px]">
             <div className="flex flex-col space-y-8">
               <p>
-                with me <span className="text-brand">arif iskandar</span>, a
-                software developer who loves to share how to code in many
-                programing languages and multi platforms.
+                {translate(router.locale).home.hero.with[0]}{' '}
+                <span className="text-brand">arif iskandar</span>,{' '}
+                {translate(router.locale).home.hero.with[1]}
               </p>
               <div className="flex flex-row items-center space-x-4">
                 <Button
@@ -39,7 +46,7 @@ function Hero() {
                   className="w-max"
                   onClick={() => router.push('/#lessons')}
                 >
-                  Start learn
+                  {translate(router.locale).home.hero.button}
                 </Button>
                 <IconItem
                   href="https://github.com/cuunoong"

@@ -1,9 +1,12 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 import { LessonData } from '../models/lesson'
+import translate from '../utils/translate'
 import Button from './button'
 import Card from './card'
 
 function Lessons({ lessons }: { lessons: LessonData[] }) {
+  const router = useRouter()
   return (
     <section
       className="mb-9 flex flex-col items-center space-y-9 py-12"
@@ -14,7 +17,7 @@ function Lessons({ lessons }: { lessons: LessonData[] }) {
           <Card key={index} lesson={lesson} />
         ))}
       </div>
-      <Button className="mx-auto">See more</Button>
+      <Button className="mx-auto">{translate(router.locale).more}</Button>
     </section>
   )
 }

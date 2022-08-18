@@ -4,11 +4,13 @@ import Head from 'next/head'
 import { DefaultSeo } from 'next-seo'
 import SEO from '../configs/next-seo.config'
 import Cursor from '../components/cursor'
-function MyApp({ Component, pageProps }: AppProps) {
+import { appWithTranslation } from 'next-i18next'
+import translate from '../utils/translate'
+function MyApp({ Component, pageProps, router: { locale } }: AppProps) {
   return (
     <>
       <Head>
-        <title>Let’s learn to code an application - Arif Iskandar</title>
+        <title>{translate(locale).title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <DefaultSeo {...SEO} />
@@ -18,4 +20,4 @@ function MyApp({ Component, pageProps }: AppProps) {
   )
 }
 
-export default MyApp
+export default appWithTranslation(MyApp)
