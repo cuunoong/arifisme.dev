@@ -73,7 +73,13 @@ function Header({
               className="hidden xl:block"
               icon={YoutubeIcon}
             />
-            <Button>Download CV</Button>
+            <Button
+              onClick={() => {
+                open('/CV-Arif Iskandar.pdf', '__blank')
+              }}
+            >
+              Download CV
+            </Button>
 
             {/* Open sidenav */}
             <button

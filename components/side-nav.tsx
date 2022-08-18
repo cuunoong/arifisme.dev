@@ -73,7 +73,10 @@ function SideNav(props: { open: boolean; onCLose: () => void }) {
                 <Button
                   type="filled"
                   className="relative mb-6"
-                  onClick={props.onCLose}
+                  onClick={() => {
+                    props.onCLose()
+                    open('/CV-Arif Iskandar.pdf', '__blank')
+                  }}
                 >
                   Download CV
                 </Button>
