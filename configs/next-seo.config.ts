@@ -2,6 +2,7 @@ import { DefaultSeoProps } from 'next-seo'
 
 export default {
   defaultOpenGraphImageWidth: 800,
+  defaultOpenGraphImageHeight: 600,
   canonical: process.env.NEXT_PUBLIC_APP_URL,
   openGraph: {
     type: 'website',

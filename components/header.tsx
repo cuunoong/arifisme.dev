@@ -1,5 +1,6 @@
 import { NextSeo } from 'next-seo'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useState } from 'react'
 import Button from './button'
 import IconItem from './icon-item'
@@ -9,6 +10,7 @@ import MenuIcon from './icons/menu'
 import TiktokIcon from './icons/tiktok'
 import YoutubeIcon from './icons/youtube'
 import SideNav from './side-nav'
+const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL
 function Header({
   title,
   description,
@@ -17,12 +19,16 @@ function Header({
   description?: string
 }) {
   const [isOpenSideNav, setIsOpenSideNav] = useState(false)
-
+  const router = useRouter()
   return (
     <>
       <NextSeo
         title={title ? `${title} - Arif Iskandar` : undefined}
         description={description}
+        openGraph={{
+          title,
+          url: `${NEXT_PUBLIC_APP_URL}${router.pathname}`,
+        }}
       />
       <header className="fixed top-0 z-10 w-full bg-gradient-to-b from-white dark:from-black">
         <div className="mx-auto flex items-center justify-between px-4 py-3 md:max-w-2xl md:py-0 md:px-2 xl:max-w-7xl">
