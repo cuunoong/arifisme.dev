@@ -34,6 +34,7 @@ function LessonId({
       <Header
         title={lesson.title as string}
         description={lesson.sortDescription as string}
+        image={lesson.image as string}
       />
       <main className="mx-auto px-6 pt-12 md:mt-24 md:max-w-2xl md:px-2 xl:max-w-7xl">
         <div className="prose prose-slate mx-auto pt-12 prose-a:text-brand dark:prose-invert md:pt-0 lg:prose-lg">

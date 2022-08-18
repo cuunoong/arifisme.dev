@@ -14,9 +14,11 @@ const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL
 function Header({
   title,
   description,
+  image,
 }: {
   title?: string
   description?: string
+  image?: string
 }) {
   const [isOpenSideNav, setIsOpenSideNav] = useState(false)
   const router = useRouter()
@@ -26,8 +28,10 @@ function Header({
         title={title ? `${title} - Arif Iskandar` : undefined}
         description={description}
         openGraph={{
-          title,
+          title: title ? `${title} - Arif Iskandar` : undefined,
+
           url: `${NEXT_PUBLIC_APP_URL}${router.pathname}`,
+          images: image ? [{ url: image }] : undefined,
         }}
       />
       <header className="fixed top-0 z-10 w-full bg-gradient-to-b from-white dark:from-black">
