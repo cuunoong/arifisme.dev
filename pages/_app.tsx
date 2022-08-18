@@ -1,16 +1,20 @@
 import '../styles/globals.css'
 import type { AppProps } from 'next/app'
-import Header from '../components/header'
-
-function MyApp({ Component, pageProps }: AppProps<{ title: string }>) {
-  const title = 'It`s me Arif Iskandar - Software Developer'
+import Head from 'next/head'
+import { DefaultSeo } from 'next-seo'
+import SEO from '../configs/next-seo.config'
+import Cursor from '../components/cursor'
+function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div className="container font-gt-walsheim-pro antialiased">
-      <Header title={title} />
-      <main className="mb-[50px] sm:mb-20">
-        <Component {...pageProps} />
-      </main>
-    </div>
+    <>
+      <Head>
+        <title>Let’s learn to code an application - Arif Iskandar</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <DefaultSeo {...SEO} />
+      <Component {...pageProps} />
+      <Cursor />
+    </>
   )
 }
 

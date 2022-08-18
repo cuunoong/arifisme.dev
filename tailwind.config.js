@@ -5,27 +5,15 @@ module.exports = {
   ],
   theme: {
     extend: {
-      maxWidth: {
-        page: '83ch',
-      },
-      screens: {
-        xm: '370px',
-        sm: '480px',
-      },
-      boxShadow: {
-        headers: '0 2px 0 var(--brand)',
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
       },
       colors: {
-        bg: '#161515',
-        text: '#ffffff',
-        secondary: '#80848d',
-        header: 'rgb(21 20 20)',
-        brand: '#00aaff',
-      },
-      fontFamily: {
-        'gt-walsheim-pro': `"GT Walsheim Pro",-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif`,
+        brand: '#EF5DA8',
+        text: '#393F48',
+        purple: '#9B51E0',
       },
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 }

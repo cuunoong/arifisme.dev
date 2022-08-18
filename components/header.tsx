@@ -1,63 +1,110 @@
-import Head from 'next/head'
-import Image from 'next/image'
+import { NextSeo } from 'next-seo'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useState } from 'react'
+import Button from './button'
+import IconItem from './icon-item'
+import GithubIcon from './icons/github'
+import InstagramIcon from './icons/instagram'
+import MenuIcon from './icons/menu'
+import TiktokIcon from './icons/tiktok'
+import YoutubeIcon from './icons/youtube'
+import SideNav from './side-nav'
+function Header({
+  title,
+  description,
+}: {
+  title?: string
+  description?: string
+}) {
+  const [isOpenSideNav, setIsOpenSideNav] = useState(false)
 
-const links = [
-  { title: 'Home', href: '/' },
-  { title: 'About', href: '/about' },
-  { title: 'Blog', href: '/blog' },
-]
-
-interface Props {
-  title: string
-}
-
-export default function Header({ title }: Props) {
-  const router = useRouter()
   return (
     <>
-      <Head>
-        <link rel="icon" href="/favicon.ico" />
-        <title>{title}</title>
-      </Head>
-      <header className="fixed top-[-1px] left-0 right-0 z-[4] bg-header/60 backdrop-blur-[20px] backdrop-saturate-[180%]">
-        <div className="mx-auto flex max-w-page flex-row items-center justify-between px-[15px] py-[10px] sm:px-[30px] sm:py-[20px]">
-          <Link href="/">
-            <a className="mb-0 block">
-              <span className="relative m-0 box-border inline-block h-[45px] w-[45px] overflow-hidden border-0 bg-none p-0 opacity-100">
-                <Image
+      <NextSeo
+        title={title ? `${title} - Arif Iskandar` : undefined}
+        description={description}
+      />
+      <header className="fixed top-0 z-10 w-full bg-gradient-to-b from-white dark:from-black">
+        <div className="mx-auto flex items-center justify-between px-4 py-3 md:max-w-2xl md:py-0 md:px-2 xl:max-w-7xl">
+          {/* Left Header */}
+          <div className="flex items-center space-x-6">
+            {/* Logo */}
+            <Link href="/">
+              <a className="flex select-none items-center space-x-4 px-3 py-2">
+                <img
+                  src="/avatar.png"
                   alt="Arif Iskandar"
-                  src="/images/avatar.png"
-                  width={45}
-                  height={45}
-                  priority
+                  className="h-6 w-6 rounded-full md:h-10 md:w-10"
                 />
-              </span>
-            </a>
-          </Link>
-          <nav className="relative top-[-2px] flex items-center sm:top-0">
-            <ol className="mr-0 mb-0 flex list-none p-0 text-[14px] font-bold xm:text-[17px]">
-              {links.map(({ title, href }) => (
-                <li
-                  key={title}
-                  className={`my-1 mr-[25px]  sm:mr-[35px] md:mr-[75px] ${
-                    router.route.split('/')[1] == href.split('/')[1]
-                      ? 'shadow-headers'
-                      : 'opacity-60 hover:opacity-100'
-                  }`}
-                >
-                  <Link href={href}>
-                    <a>{title}</a>
-                  </Link>
-                </li>
-              ))}
-            </ol>
-          </nav>
+                <span className="font-semibold">It’s me</span>
+              </a>
+            </Link>
+
+            {/* Navigation */}
+            <ul className=" hidden space-x-2 md:flex">
+              <NavigationItem title="home" href="/" />
+              <NavigationItem title="about" href="/#about" />
+              <NavigationItem
+                title="contact"
+                href="mailto:arif19iskandar@gmail.com"
+              />
+            </ul>
+          </div>
+
+          {/* Right Header */}
+          <div className="flex items-center space-x-3 md:space-x-6">
+            <IconItem
+              href="https://github.com/cuunoong"
+              className="hidden xl:block"
+              icon={GithubIcon}
+            />
+            <IconItem
+              href="https://www.instagram.com/cuunoong/"
+              className="hidden xl:block"
+              icon={InstagramIcon}
+            />
+            <IconItem
+              href="https://www.tiktok.com/@cuunoong"
+              className="hidden xl:block"
+              icon={TiktokIcon}
+            />
+            <IconItem
+              href="https://www.youtube.com/channel/UCrjziO1uYfcBxbcTNjB2M_w"
+              className="hidden xl:block"
+              icon={YoutubeIcon}
+            />
+            <Button>Download CV</Button>
+
+            {/* Open sidenav */}
+            <button
+              className="p-2 md:hidden"
+              onClick={() => setIsOpenSideNav(true)}
+            >
+              <MenuIcon />
+            </button>
+          </div>
         </div>
       </header>
-      <div className="mb-[30px] h-[60px] sm:mb-[80px] sm:h-[84px]"></div>
+      <SideNav open={isOpenSideNav} onCLose={() => setIsOpenSideNav(false)} />
     </>
   )
 }
+
+export const NavigationItem = (props: {
+  href?: string
+  title: string
+  onClick?: () => void
+}) => (
+  <li>
+    <Link href={props.href || ''}>
+      <a
+        className="block px-4 py-3 text-sm hover:text-brand md:px-3 md:py-2"
+        onClick={props.onClick}
+      >
+        {props.title}
+      </a>
+    </Link>
+  </li>
+)
+
+export default Header
