@@ -2,13 +2,14 @@ import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next'
 import React, { useEffect } from 'react'
 import Footer from '../components/footer'
 import Header from '../components/header'
-import Lesson, { LessonData } from '../models/lesson'
+import Lesson, { LessonData, LessonTag } from '../models/lesson'
 import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { getGithubUrl } from '../utils/github'
 import dynamic from 'next/dynamic'
 import TagIcon from '../components/tag-icon'
 import translate from '../utils/translate'
+import { increment } from 'firebase/firestore'
 const components = {
   img: dynamic(() => import('../components/md/image')),
 }
@@ -25,12 +26,15 @@ function LessonId({
   useEffect(() => {
     Lesson.getInstance().update({
       id: lesson.id,
-      totalCloned: (lesson.totalCloned || 0) + 1,
+      totalCloned: increment(1),
     })
   }, [])
   return (
     <>
-      <Header title={lesson.title} description={lesson.sortDescription} />
+      <Header
+        title={lesson.title as string}
+        description={lesson.sortDescription as string}
+      />
       <main className="mx-auto px-6 pt-12 md:mt-24 md:max-w-2xl md:px-2 xl:max-w-7xl">
         <div className="prose prose-slate mx-auto pt-12 prose-a:text-brand dark:prose-invert md:pt-0 lg:prose-lg">
           <div className="flex w-full items-center justify-between">
@@ -40,11 +44,15 @@ function LessonId({
                   key={index}
                   className="flex h-8 w-8 items-center justify-center rounded-lg dark:bg-slate-600"
                 >
-                  <TagIcon tag={tag} />
+                  <TagIcon tag={tag as LessonTag} />
                 </span>
               ))}
             </div>
-            <a href={lesson.githubURL} className="text-sm" target={'_blank'}>
+            <a
+              href={lesson.githubURL as string}
+              className="text-sm"
+              target={'_blank'}
+            >
               {translate(locale).github}
             </a>
           </div>

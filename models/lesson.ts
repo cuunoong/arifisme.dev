@@ -1,3 +1,4 @@
+import { FieldValue } from 'firebase/firestore'
 import Model, { ModelData } from './model'
 
 export type LessonTag =
@@ -12,12 +13,12 @@ export type LessonTag =
   | 'figma'
 
 export interface LessonData extends ModelData {
-  title?: string
-  sortDescription?: string
-  image?: string
-  tags?: LessonTag[]
-  totalCloned?: number
-  githubURL?: string
+  title?: string | FieldValue
+  sortDescription?: string | FieldValue
+  image?: string | FieldValue
+  tags?: LessonTag[] | FieldValue[]
+  totalCloned?: number | FieldValue
+  githubURL?: string | FieldValue
 }
 
 export default class Lesson extends Model {
@@ -32,7 +33,7 @@ export default class Lesson extends Model {
   public async add(data: LessonData): Promise<void> {
     if (data.image) {
       const image = await this.uploadImage(
-        data.image || '',
+        (data.image as string) || '',
         `lessons/${data.id || 'lesson'}.png`
       )
       return super.add({ ...data, image } as LessonData)
