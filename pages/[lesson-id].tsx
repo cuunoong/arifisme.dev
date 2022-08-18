@@ -77,7 +77,7 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
 
   return {
     paths: paths,
-    fallback: true, // can also be true or 'blocking'
+    fallback: 'blocking', // can also be true or 'blocking'
   }
 }
 
