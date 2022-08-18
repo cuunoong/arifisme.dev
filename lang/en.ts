@@ -11,6 +11,7 @@ export default {
     },
   },
   more: 'See more',
+  github: 'See full on github',
   about: [
     'I like to code and keep it simple, try something new, and learn more. I think sharing knowledge is the best practice to improve my skills, and I try to do it.',
     'I am currently the Chief Technology Officer at',

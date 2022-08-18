@@ -11,6 +11,7 @@ export default {
     },
   },
   more: 'Lihat lebih banyak',
+  github: 'Lihat lengkap di github',
   about: [
     'Saya suka membuat aplikasi, mencoba sesuatu yang baru, dan belajar banyak. Saya pikir berbagi pengetahuan adalah cara terbaik untuk upgrade keterampilan saya, dan saya malakukannya.',
     'Saat ini saya adalah Chief Technology Officer di',

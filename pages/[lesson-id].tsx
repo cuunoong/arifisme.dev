@@ -8,6 +8,7 @@ import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote'
 import { getGithubUrl } from '../utils/github'
 import dynamic from 'next/dynamic'
 import TagIcon from '../components/tag-icon'
+import translate from '../utils/translate'
 const components = {
   img: dynamic(() => import('../components/md/image')),
 }
@@ -15,9 +16,11 @@ const components = {
 function LessonId({
   lesson,
   datas,
+  locale,
 }: {
   lesson: LessonData
   datas: MDXRemoteSerializeResult
+  locale: string
 }) {
   useEffect(() => {
     Lesson.getInstance().update({
@@ -42,7 +45,7 @@ function LessonId({
               ))}
             </div>
             <a href={lesson.githubURL} className="text-sm" target={'_blank'}>
-              See full on github
+              {translate(locale).github}
             </a>
           </div>
           {<MDXRemote components={components} {...datas} />}
@@ -53,14 +56,20 @@ function LessonId({
   )
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  const lessons = await (
-    await Lesson.getInstance().getAll()
-  ).map((lesson) => ({ params: { 'lesson-id': lesson.id } }))
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+  const paths: { params: { ['lesson-id']: string }; locale: string }[] = []
+
+  const lessons = await Lesson.getInstance().getAll()
+
+  for (const locale of locales as string[]) {
+    lessons.forEach((lesson) => {
+      paths.push({ params: { 'lesson-id': lesson.id }, locale })
+    })
+  }
 
   return {
-    paths: lessons,
-    fallback: false, // can also be true or 'blocking'
+    paths: paths,
+    fallback: true, // can also be true or 'blocking'
   }
 }
 
@@ -69,10 +78,17 @@ export const getStaticProps: GetStaticProps = async (
 ) => {
   const params = context.params as { 'lesson-id': string }
 
+  const locale = context.locale || 'id'
+
   const lesson = await Lesson.getInstance().get(params['lesson-id'])
 
   const text = await (
-    await fetch(getGithubUrl(lesson?.id as string, '/README.md'))
+    await fetch(
+      getGithubUrl(
+        lesson?.id as string,
+        `/.github/README${locale == 'id' ? '-id' : ''}.md`
+      )
+    )
   ).text()
 
   const datas = await serialize(text)
@@ -81,8 +97,8 @@ export const getStaticProps: GetStaticProps = async (
     props: {
       lesson,
       datas,
+      locale,
     },
-    revalidate: true,
   }
 }
 
