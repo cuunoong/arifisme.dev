@@ -6,7 +6,10 @@ export interface CommentData extends ModelData {
     job?: string
     avatar?: string
   }
-  message?: string
+  message?: {
+    id?: string
+    en?: string
+  }
 }
 
 export default class Comment extends Model {
