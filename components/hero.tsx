@@ -94,7 +94,7 @@ function Hero() {
         </div>
       </div>
       {/* Background */}
-      <Decoration className="-z-1 absolute top-0 -right-[250px] -z-[1] h-[500px] w-[500px] text-brand xl:-right-[400px] xl:-top-[180px] xl:h-auto xl:w-auto" />
+      <Decoration className="absolute top-0 -right-[250px] z-0 h-[500px] w-[500px] text-brand xl:-right-[400px] xl:-top-[180px] xl:h-auto xl:w-auto" />
     </section>
   )
 }

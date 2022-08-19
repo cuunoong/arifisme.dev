@@ -37,7 +37,7 @@ function About() {
           </div>
         </div>
       </div>
-      <Decoration className="-z-1 absolute -top-[106px] -right-[193px] -z-[1] h-[500px] w-[500px] text-brand opacity-70 md:-left-[400px] md:right-auto md:-top-[180px] md:h-auto md:w-auto" />
+      <Decoration className="-z-1 absolute -top-[106px] -right-[193px] h-[500px] w-[500px] text-brand opacity-70 md:-left-[400px] md:right-auto md:-top-[180px] md:h-auto md:w-auto" />
     </section>
   )
 }
