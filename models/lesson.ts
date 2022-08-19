@@ -14,7 +14,10 @@ export type LessonTag =
 
 export interface LessonData extends ModelData {
   title?: string | FieldValue
-  sortDescription?: string | FieldValue
+  sortDescription?: {
+    id?: string | FieldValue
+    en?: string | FieldValue
+  }
   image?: string | FieldValue
   tags?: LessonTag[] | FieldValue[]
   totalCloned?: number | FieldValue
@@ -48,8 +51,13 @@ export default class Lesson extends Model {
   public getAll(props?: {
     limit?: number | undefined
     page?: number | undefined
+    latest?: number
   }): Promise<LessonData[]> {
-    return super.getAll(props)
+    return super.getAll({
+      ...props,
+      orderBy: 'totalCloned',
+      after: props?.latest,
+    })
   }
 
   public update(data: LessonData): Promise<void> {

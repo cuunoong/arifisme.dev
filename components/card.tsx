@@ -1,9 +1,11 @@
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { LessonData, LessonTag } from '../models/lesson'
 import TagIcon from './tag-icon'
 
 function Card({ lesson }: { lesson: LessonData }) {
+  const router = useRouter()
   return (
     <Link href={`/${lesson.id}`}>
       <a className="card flex flex-col rounded-[24px] border border-dashed bg-white p-3 transition-shadow dark:border-white/20 dark:bg-black md:p-4 xl:rounded-[32px]">
@@ -31,7 +33,11 @@ function Card({ lesson }: { lesson: LessonData }) {
             <h5 className="text-2xl font-medium leading-[1.02]">
               {lesson.title}
             </h5>
-            <p className="text-sm leading-[1.6]">{lesson.sortDescription}</p>
+            <p className="text-sm leading-[1.6]">
+              {router.locale == 'en'
+                ? lesson.sortDescription?.en
+                : lesson.sortDescription?.id}
+            </p>
           </div>
           <div className="flex -space-x-4">
             {(lesson.totalCloned || 0) > 0 && (
