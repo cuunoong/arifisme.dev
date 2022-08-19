@@ -9,6 +9,7 @@ import {
   getDocs,
   limit,
   updateDoc,
+  startAfter,
 } from 'firebase/firestore'
 import { getDownloadURL, ref, uploadString } from 'firebase/storage'
 import { database, storage } from '../configs/firebase.config'
@@ -53,10 +54,16 @@ export default class Model {
     })
   }
 
-  public async getAll(props?: { limit?: number; page?: number }) {
+  public async getAll(props?: {
+    limit?: number
+    page?: number
+    orderBy?: string
+    after?: string | number
+  }) {
     const q = query(
       this.dbInstance,
-      orderBy('updatedAt', 'desc'),
+      orderBy(props?.orderBy || 'updatedAt', 'desc'),
+      ...(props?.after ? [startAfter(props?.after)] : []),
       limit(props?.limit || 10)
     )
 
