@@ -14,11 +14,6 @@ function Cursor() {
       }
       mouse = { x: posX, y: posY }
     }
-    gsap.from(document.querySelector('main'), {
-      opacity: 0,
-      duration: 1,
-      ease: 'Power3.easeInOut',
-    })
 
     new CursorClass(document.querySelector('#cursor'))
 

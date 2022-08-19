@@ -2,12 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  @apply scroll-smooth bg-white dark:bg-black;
-}
-
+html,
 body {
-  @apply w-screen overflow-x-hidden font-poppins leading-[1.6] text-text selection:bg-brand  dark:text-white;
+  @apply invisible w-screen overflow-x-hidden scroll-smooth bg-white font-poppins leading-[1.6] text-text selection:bg-brand dark:bg-black  dark:text-white;
 }
 
 body #__next {

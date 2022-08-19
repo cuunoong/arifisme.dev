@@ -7,9 +7,10 @@ import Cursor from '../components/cursor'
 import { appWithTranslation } from 'next-i18next'
 import translate from '../utils/translate'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import * as gtag from '../utils/analytic'
 import Script from 'next/script'
+import animation from '../anim'
 
 function MyApp({ Component, pageProps, router: { locale } }: AppProps) {
   const router = useRouter()
@@ -25,6 +26,11 @@ function MyApp({ Component, pageProps, router: { locale } }: AppProps) {
       router.events.off('hashChangeComplete', handleRouteChange)
     }
   }, [router.events])
+
+  // Adding animation on load
+  useEffect(() => {
+    animation(router.pathname == '/' ? 'home' : 'detail')
+  }, [router.pathname])
 
   return (
     <>
@@ -47,13 +53,14 @@ function MyApp({ Component, pageProps, router: { locale } }: AppProps) {
           `,
         }}
       />
-
       <Head>
         <title>{translate(locale).title}</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <DefaultSeo {...SEO} />
+
       <Component {...pageProps} />
+
       <Cursor />
     </>
   )

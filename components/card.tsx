@@ -6,7 +6,7 @@ import TagIcon from './tag-icon'
 function Card({ lesson }: { lesson: LessonData }) {
   return (
     <Link href={`/${lesson.id}`}>
-      <a className="flex flex-col rounded-[24px] border border-dashed bg-white p-3 transition-shadow dark:border-white/20 dark:bg-black md:p-4 xl:rounded-[32px]">
+      <a className="card flex flex-col rounded-[24px] border border-dashed bg-white p-3 transition-shadow dark:border-white/20 dark:bg-black md:p-4 xl:rounded-[32px]">
         <div className="relative">
           <div className="relative w-full overflow-hidden rounded-2xl pt-[75%]">
             <img
