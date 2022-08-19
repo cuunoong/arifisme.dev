@@ -1,9 +1,11 @@
 import { gsap } from 'gsap'
+import footer from './footer'
 import header from './header'
 
 // homepage animation
 const homepage = () => {
   header()
+  footer()
 
   const tl = gsap.timeline()
   tl.from('#hero h1 .line .line-animate', {

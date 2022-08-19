@@ -1,8 +1,10 @@
 import header from './header'
 import { gsap } from 'gsap'
+import footer from './footer'
 
 export default function detail() {
   header(1)
+  footer()
   const tl = gsap.timeline()
   tl.from('.prose > *', {
     duration: 1.2,
