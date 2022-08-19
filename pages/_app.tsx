@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps, router: { locale } }: AppProps) {
   // Adding animation on load
   useEffect(() => {
     animation(router.pathname == '/' ? 'home' : 'detail')
-  }, [router.pathname])
+  }, [])
 
   return (
     <>
