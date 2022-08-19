@@ -5,16 +5,23 @@ function Button(props: {
   className?: string
   children: JSX.Element | string
   onClick?: () => void
-  as?: 'a'
+  disabled?: boolean
 }) {
   return (
     <button
       className={`select-none rounded-full px-6 py-2 text-sm leading-[1.6] transition-all ${
         !props.type || props.type === 'default'
-          ? 'border border-brand hover:bg-brand/10'
+          ? `border ${
+              props.disabled
+                ? 'border-brand/25'
+                : 'border-brand hover:bg-brand/10'
+            }`
+          : props.disabled
+          ? 'bg-brand/25 text-white'
           : 'bg-brand text-white'
       } ${props.className}`}
       onClick={props.onClick}
+      disabled={props.disabled}
     >
       {props.children}
     </button>
