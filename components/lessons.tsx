@@ -1,12 +1,34 @@
 import { useRouter } from 'next/router'
-import React from 'react'
-import { LessonData } from '../models/lesson'
+import React, { useCallback, useState } from 'react'
+import Lesson, { LessonData } from '../models/lesson'
 import translate from '../utils/translate'
 import Button from './button'
 import Card from './card'
 
-function Lessons({ lessons }: { lessons: LessonData[] }) {
+function Lessons({
+  lessons,
+  addMoreLesson,
+}: {
+  lessons: LessonData[]
+  addMoreLesson: (lessons: LessonData[]) => void
+}) {
   const router = useRouter()
+  const [page, setPage] = useState(1)
+  const loadMore = useCallback(() => {
+    Lesson.getInstance()
+      .getAll({
+        page: page + 3,
+        limit: 1,
+        latest: lessons.at(-1)?.totalCloned as number,
+      })
+      .then((newLessonDatas) => {
+        if (newLessonDatas.length == 0) setPage(-1)
+        else {
+          addMoreLesson(newLessonDatas)
+          setPage((p) => p + 1)
+        }
+      })
+  }, [lessons])
   return (
     <section
       className="mb-9 flex flex-col items-center space-y-9 py-12"
@@ -17,7 +39,9 @@ function Lessons({ lessons }: { lessons: LessonData[] }) {
           <Card key={index} lesson={lesson} />
         ))}
       </div>
-      <Button className="mx-auto">{translate(router.locale).more}</Button>
+      <Button disabled={page == -1} className="mx-auto" onClick={loadMore}>
+        {translate(router.locale).more}
+      </Button>
     </section>
   )
 }

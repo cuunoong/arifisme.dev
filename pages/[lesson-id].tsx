@@ -91,6 +91,8 @@ export const getStaticProps: GetStaticProps = async (
 
   const lesson = await Lesson.getInstance().get(params['lesson-id'])
 
+  if (!lesson) return { notFound: true }
+
   const text = await (
     await fetch(
       getGithubUrl(
@@ -100,7 +102,7 @@ export const getStaticProps: GetStaticProps = async (
     )
   ).text()
 
-  const datas = await serialize(text)
+  const datas = await serialize(text + '\n# ' + lesson?.title)
 
   return {
     props: {
@@ -108,6 +110,7 @@ export const getStaticProps: GetStaticProps = async (
       datas,
       locale,
     },
+    revalidate: true,
   }
 }
 
