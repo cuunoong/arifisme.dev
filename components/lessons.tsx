@@ -16,12 +16,6 @@ function Lessons({ lessons }: { lessons: LessonData[] }) {
         {lessons.map((lesson, index) => (
           <Card key={index} lesson={lesson} />
         ))}
-        {lessons.map((lesson, index) => (
-          <Card key={index} lesson={lesson} />
-        ))}
-        {lessons.map((lesson, index) => (
-          <Card key={index} lesson={lesson} />
-        ))}
       </div>
       <Button className="mx-auto">{translate(router.locale).more}</Button>
     </section>
