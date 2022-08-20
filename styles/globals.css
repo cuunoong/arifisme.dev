@@ -18,4 +18,8 @@ body #__next {
   .prose p a img {
     @apply my-1 inline;
   }
+
+  p code {
+    @apply whitespace-nowrap;
+  }
 }
