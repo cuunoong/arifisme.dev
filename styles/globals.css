@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('./markdown.css');
+
 html,
 body {
   @apply invisible w-screen overflow-x-hidden scroll-smooth bg-white font-poppins leading-[1.6] text-text selection:bg-brand dark:bg-black  dark:text-white;

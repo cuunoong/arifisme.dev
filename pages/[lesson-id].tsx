@@ -10,6 +10,12 @@ import dynamic from 'next/dynamic'
 import TagIcon from '../components/tag-icon'
 import translate from '../utils/translate'
 import { increment } from 'firebase/firestore'
+
+// pligins
+import emoji from 'remark-emoji'
+import gfm from 'remark-gfm'
+const remarkPlugins = [emoji, gfm]
+
 const components = {
   img: dynamic(() => import('../components/md/image')),
 }
@@ -37,7 +43,7 @@ function LessonId({
         image={lesson.image as string}
       />
       <main className="mx-auto px-6 pt-12 md:mt-24 md:max-w-2xl md:px-2 xl:max-w-7xl">
-        <div className="prose prose-slate mx-auto pt-12 prose-a:text-brand dark:prose-invert md:pt-0 lg:prose-lg">
+        <div className="prose prose-slate mx-auto pt-12  prose-a:text-brand dark:prose-invert md:pt-0 xl:prose-lg">
           <div className="flex w-full items-center justify-between">
             <div className="top-0 right-0 flex space-x-3">
               {lesson.tags?.map((tag, index) => (
@@ -52,7 +58,9 @@ function LessonId({
               {translate(locale).github}
             </a>
           </div>
-          {<MDXRemote components={components} {...datas} />}
+          <div className="markdown-body !bg-transparent">
+            {<MDXRemote components={components} {...datas} />}
+          </div>
         </div>
       </main>
       <Footer />
@@ -97,7 +105,9 @@ export const getStaticProps: GetStaticProps = async (
     )
   ).text()
 
-  const datas = await serialize(text)
+  const datas = await serialize(text, {
+    mdxOptions: { remarkPlugins: remarkPlugins },
+  })
 
   return {
     props: {
