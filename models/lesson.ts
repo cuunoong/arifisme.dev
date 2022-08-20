@@ -55,7 +55,6 @@ export default class Lesson extends Model {
   }): Promise<LessonData[]> {
     return super.getAll({
       ...props,
-      orderBy: 'totalCloned',
       after: props?.latest,
     })
   }
