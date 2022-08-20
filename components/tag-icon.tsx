@@ -12,23 +12,23 @@ import TailwindcssPlainIcon from 'react-devicons/tailwindcss/plain'
 const TagIcon = (props: { tag: LessonTag }) => {
   switch (props.tag) {
     case 'android':
-      return <AndroidOriginalIcon size={20} />
+      return <AndroidOriginalIcon className="!h-6 !w-auto" />
     case 'ios':
-      return <AppleOriginalIcon size={20} />
+      return <AppleOriginalIcon className="!h-6 !w-auto dark:!fill-white" />
     case 'flutter':
-      return <FlutterOriginalIcon size={20} />
+      return <FlutterOriginalIcon className="!h-6 !w-auto" />
     case 'nextjs':
-      return <NextjsOriginalIcon size={20} />
+      return <NextjsOriginalIcon className="!h-6 !w-auto" />
     case 'nodejs':
-      return <NodejsOriginalIcon size={20} />
+      return <NodejsOriginalIcon className="!h-6 !w-auto" />
     case 'php':
-      return <PhpOriginalIcon size={20} />
+      return <PhpOriginalIcon className="!h-6 !w-auto" />
     case 'tailwindcss':
-      return <TailwindcssPlainIcon size={20} />
+      return <TailwindcssPlainIcon className="!h-6 !w-auto" />
     case 'react':
-      return <ReactOriginalIcon size={20} />
+      return <ReactOriginalIcon className="!h-6 !w-auto" />
     case 'figma':
-      return <FigmaOriginalIcon size={20} />
+      return <FigmaOriginalIcon className="!h-6 !w-auto" />
     default:
       return null
   }
