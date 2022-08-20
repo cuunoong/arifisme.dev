@@ -39,14 +39,9 @@ function LessonId({
       <main className="mx-auto px-6 pt-12 md:mt-24 md:max-w-2xl md:px-2 xl:max-w-7xl">
         <div className="prose prose-slate mx-auto pt-12 prose-a:text-brand dark:prose-invert md:pt-0 lg:prose-lg">
           <div className="flex w-full items-center justify-between">
-            <div className="top-0 right-0 flex space-x-3 p-2">
+            <div className="top-0 right-0 flex space-x-3">
               {lesson.tags?.map((tag, index) => (
-                <span
-                  key={index}
-                  className="flex h-8 w-8 items-center justify-center rounded-lg dark:bg-slate-600"
-                >
-                  <TagIcon tag={tag as LessonTag} />
-                </span>
+                <TagIcon tag={tag as LessonTag} key={index} />
               ))}
             </div>
             <a
