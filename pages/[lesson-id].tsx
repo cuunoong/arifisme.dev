@@ -97,7 +97,7 @@ export const getStaticProps: GetStaticProps = async (
     )
   ).text()
 
-  const datas = await serialize(text + '\n# ' + lesson?.title)
+  const datas = await serialize(text)
 
   return {
     props: {
