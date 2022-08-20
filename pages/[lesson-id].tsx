@@ -10,12 +10,12 @@ import dynamic from 'next/dynamic'
 import TagIcon from '../components/tag-icon'
 import translate from '../utils/translate'
 import { increment } from 'firebase/firestore'
+import hljs from '../utils/hljs'
 
 // pligins
 import emoji from 'remark-emoji'
 import gfm from 'remark-gfm'
 const remarkPlugins = [emoji, gfm]
-
 const components = {
   img: dynamic(() => import('../components/md/image')),
 }
@@ -34,6 +34,9 @@ function LessonId({
       id: lesson.id,
       totalCloned: increment(1),
     })
+    document
+      .querySelectorAll('pre code')
+      .forEach((el) => hljs.highlightElement(el as HTMLElement))
   }, [])
   return (
     <>
@@ -106,7 +109,7 @@ export const getStaticProps: GetStaticProps = async (
   ).text()
 
   const datas = await serialize(text, {
-    mdxOptions: { remarkPlugins: remarkPlugins },
+    mdxOptions: { remarkPlugins },
   })
 
   return {
@@ -115,7 +118,7 @@ export const getStaticProps: GetStaticProps = async (
       datas,
       locale,
     },
-    revalidate: true,
+    revalidate: 10,
   }
 }
 
