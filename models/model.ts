@@ -17,6 +17,7 @@ import { database, storage } from '../configs/firebase.config'
 export interface ModelData {
   id: string
   updatedAt?: number
+  createdAt?: number
 }
 
 export default class Model {
@@ -38,7 +39,7 @@ export default class Model {
   public async add(data: ModelData) {
     return await setDoc(this.ref(data.id), {
       ...data,
-      updatedAt: Math.floor(new Date().getTime() / 1000),
+      createdAt: Math.floor(new Date().getTime() / 1000),
     })
   }
 
@@ -62,7 +63,7 @@ export default class Model {
   }) {
     const q = query(
       this.dbInstance,
-      orderBy(props?.orderBy || 'updatedAt', 'desc'),
+      orderBy(props?.orderBy || 'createdAt', 'desc'),
       ...(props?.after ? [startAfter(props?.after)] : []),
       limit(props?.limit || 10)
     )
