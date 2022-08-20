@@ -41,7 +41,11 @@ function LessonId({
   return (
     <>
       <Header
-        title={lesson.title as string}
+        title={`${lesson.title} | ${
+          locale == 'en'
+            ? lesson.sortDescription?.en
+            : lesson.sortDescription?.id
+        }`}
         description={
           (locale == 'en'
             ? lesson.sortDescription?.en

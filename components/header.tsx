@@ -25,7 +25,7 @@ function Header({
   return (
     <>
       <NextSeo
-        title={title ? `${title} | ${description} - Arif Iskandar` : undefined}
+        title={title ? `${title} - Arif Iskandar` : undefined}
         description={description}
         openGraph={{
           title: title ? `${title} - Arif Iskandar` : undefined,
