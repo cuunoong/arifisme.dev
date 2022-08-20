@@ -4,7 +4,7 @@ export default {
     hero: {
       title: ['Ayo belajar', 'membuat', 'sebuah aplikasi'],
       with: [
-        'bersama saya',
+        'Bersama saya',
         'seorang software developer yang suka untuk sharing cara membuat aplikasi dalam banyak bahasa pemrograman dan multi platform.',
       ],
       button: 'Mulai belajar',

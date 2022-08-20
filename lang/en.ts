@@ -4,7 +4,7 @@ export default {
     hero: {
       title: ['Let’s learn', 'to code', 'an application'],
       with: [
-        'with me',
+        'With me',
         'a software developer who loves to share how to code in many programing languages and multi platforms.',
       ],
       button: 'Start learn',

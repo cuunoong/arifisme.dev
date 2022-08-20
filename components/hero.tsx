@@ -57,7 +57,7 @@ function Hero() {
             <div className="desc flex flex-col space-y-8">
               <p>
                 {translate(router.locale).home.hero.with[0]}{' '}
-                <span className="text-brand">arif iskandar</span>,{' '}
+                <span className="text-brand">Arif Iskandar</span>,{' '}
                 {translate(router.locale).home.hero.with[1]}
               </p>
               <div className="flex flex-row items-center space-x-4">
