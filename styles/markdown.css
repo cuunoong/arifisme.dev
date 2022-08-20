@@ -807,3 +807,6 @@
 .markdown-body .hljs {
   @apply text-text dark:text-white;
 }
+.markdown-body table td img {
+  @apply m-0 inline;
+}
