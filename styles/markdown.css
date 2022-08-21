@@ -709,7 +709,7 @@
 }
 .markdown-body .highlight pre,
 .markdown-body pre {
-  padding: 16px;
+  padding: 0;
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
@@ -804,9 +804,10 @@
 .markdown-body ::-webkit-calendar-picker-indicator {
   filter: invert(50%);
 }
-.markdown-body .hljs {
-  @apply text-text dark:text-white;
-}
 .markdown-body table td img {
   @apply m-0 inline;
+}
+
+.markdown-body pre code {
+  color: var(--tw-prose-code);
 }
