@@ -9,6 +9,10 @@ body {
   @apply invisible w-screen overflow-x-hidden scroll-smooth bg-white font-poppins leading-[1.6] text-text selection:bg-brand/40 dark:bg-black  dark:text-white;
 }
 
+html.dark {
+  @apply bg-black;
+}
+
 body #__next {
   max-width: 100vw;
   overflow-x: hidden;
