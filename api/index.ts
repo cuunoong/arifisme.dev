@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import jwt from 'jsonwebtoken'
 import User, { IUser } from '../models/user'
 import dbConnect from '../configs/mongodb.config'
-import { async } from '@firebase/util'
 const { JWT_SECRET } = process.env
 
 export const OK = (res: NextApiResponse, data?: any) =>
