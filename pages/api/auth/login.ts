@@ -25,9 +25,7 @@ export default async function index(req: NextApiRequest, res: NextApiResponse) {
     if (!bcrypt.compareSync(data.password, user.password))
       return ERROR(res, { password: `Doesn't match` })
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string, {
-      expiresIn: '1d',
-    })
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string)
 
     return OK(res, { token })
   } catch (error) {
