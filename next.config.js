@@ -7,4 +7,13 @@ module.exports = {
     locales: ['id'],
     localeDetection: false,
   },
+  async redirects() {
+    return [
+      {
+        source: '/links',
+        destination: 'https://linktr.ee/cuunoong',
+        permanent: false,
+      },
+    ]
+  },
 }

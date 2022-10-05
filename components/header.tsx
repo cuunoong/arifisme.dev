@@ -11,15 +11,13 @@ import TiktokIcon from './icons/tiktok'
 import YoutubeIcon from './icons/youtube'
 import SideNav from './side-nav'
 const NEXT_PUBLIC_APP_URL = process.env.NEXT_PUBLIC_APP_URL
-function Header({
-  title,
-  description,
-  image,
-}: {
+export interface HeaderProp {
   title?: string
   description?: string
   image?: string
-}) {
+}
+
+function Header({ title, description, image }: HeaderProp) {
   const [isOpenSideNav, setIsOpenSideNav] = useState(false)
   const [currentTheme, setCurrentTheme] = useState<'dark' | 'light'>('dark')
 
@@ -76,7 +74,7 @@ function Header({
         }}
       />
       <header className="fixed top-0 z-10 w-full bg-gradient-to-b from-white dark:from-black">
-        <div className="mx-auto flex items-center justify-between px-4 py-3 md:max-w-2xl md:py-0 md:px-2 xl:max-w-7xl">
+        <div className="mx-auto flex items-center justify-between px-4 py-3 md:max-w-5xl md:py-0 md:px-2 xl:max-w-7xl">
           {/* Left Header */}
           <div className="flex items-center space-x-6">
             {/* Logo */}
@@ -99,6 +97,7 @@ function Header({
                 title="contact"
                 href="mailto:arif19iskandar@gmail.com"
               />
+              <NavigationItem title="links" href="/links" />
             </ul>
           </div>
 

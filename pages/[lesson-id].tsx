@@ -14,6 +14,7 @@ import { increment } from 'firebase/firestore'
 // pligins
 import emoji from 'remark-emoji'
 import gfm from 'remark-gfm'
+import Container from '../components/container'
 const remarkPlugins = [emoji, gfm]
 const components = {
   img: dynamic(() => import('../components/md/image')),
@@ -36,43 +37,38 @@ function LessonId({
     })
   }, [])
   return (
-    <>
-      <Header
-        title={`${lesson.title} | ${
-          locale == 'en'
-            ? lesson.sortDescription?.en
-            : lesson.sortDescription?.id
-        }`}
-        description={
-          (locale == 'en'
-            ? lesson.sortDescription?.en
-            : lesson.sortDescription?.id) as string
-        }
-        image={lesson.image as string}
-      />
-      <main className="mx-auto px-6 pt-12 md:mt-24 md:max-w-2xl md:px-2 xl:max-w-7xl">
-        <div className="prose prose-slate mx-auto pt-12  prose-a:text-brand dark:prose-invert md:pt-0 xl:prose-lg">
-          <div className="flex w-full items-center justify-between">
-            <div className="top-0 right-0 flex space-x-3">
-              {lesson.tags?.map((tag, index) => (
-                <TagIcon tag={tag as LessonTag} key={index} />
-              ))}
-            </div>
-            <a
-              href={lesson.githubURL as string}
-              className="text-sm"
-              target={'_blank'}
-            >
-              {translate(locale).github}
-            </a>
+    <Container
+      title={`${lesson.title} | ${
+        locale == 'en' ? lesson.sortDescription?.en : lesson.sortDescription?.id
+      }`}
+      description={
+        (locale == 'en'
+          ? lesson.sortDescription?.en
+          : lesson.sortDescription?.id) as string
+      }
+      image={lesson.image as string}
+      className="mx-auto px-6 pt-12 md:mt-24 md:max-w-2xl md:px-2 xl:max-w-7xl"
+    >
+      <div className="prose prose-slate mx-auto pt-12  prose-a:text-brand dark:prose-invert md:pt-0 xl:prose-lg">
+        <div className="flex w-full items-center justify-between">
+          <div className="top-0 right-0 flex space-x-3">
+            {lesson.tags?.map((tag, index) => (
+              <TagIcon tag={tag as LessonTag} key={index} />
+            ))}
           </div>
-          <div className="markdown-body !bg-transparent">
-            {<MDXRemote components={components} {...datas} />}
-          </div>
+          <a
+            href={lesson.githubURL as string}
+            className="text-sm"
+            target={'_blank'}
+          >
+            {translate(locale).github}
+          </a>
         </div>
-      </main>
-      <Footer />
-    </>
+        <div className="markdown-body !bg-transparent">
+          {<MDXRemote components={components} {...datas} />}
+        </div>
+      </div>
+    </Container>
   )
 }
 
