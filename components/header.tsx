@@ -126,7 +126,7 @@ function Header({ title, description, image }: HeaderProp) {
             <Button
               className="hidden md:block"
               onClick={() => {
-                open('/CV-Arif Iskandar.pdf', '__blank')
+                open('/CV-Arif Iskandar-Backend Developer.pdf', '__blank')
               }}
             >
               Download CV

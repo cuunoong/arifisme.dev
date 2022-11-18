@@ -75,7 +75,7 @@ function SideNav(props: { open: boolean; onCLose: () => void }) {
                   className="relative mb-6"
                   onClick={() => {
                     props.onCLose()
-                    open('/CV-Arif Iskandar.pdf', '__blank')
+                    open('/CV-Arif Iskandar-Backend Developer.pdf', '__blank')
                   }}
                 >
                   Download CV
