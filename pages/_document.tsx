@@ -15,6 +15,18 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6477012025111935"
+     crossOrigin="anonymous"></script>
+{/* <!-- Kotak --> */}
+<ins className="adsbygoogle"
+     style={{display:'block'}}
+     data-ad-client="ca-pub-6477012025111935"
+     data-ad-slot="4370195745"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
         </body>
       </Html>
     )
