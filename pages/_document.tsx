@@ -9,6 +9,8 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap"
             rel="stylesheet"
           />
+          <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6477012025111935"
+     crossOrigin="anonymous"></script>
         </Head>
         <body>
           <Main />
