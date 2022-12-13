@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 function Links() {
   useEffect(() => {
     open('https://linktr.ee/cuunoong', '__blank')
-    Router.back()
+    Router.push('/')
   }, [])
   return <div></div>
 }

@@ -7,7 +7,7 @@ function Links() {
       'https://drive.google.com/drive/folders/1N56XYHwozCMEgoOfcjRGn5PxlOmucI-T?usp=share_link',
       '__blank'
     )
-    Router.back()
+    Router.push('/')
   }, [])
   return <div></div>
 }
