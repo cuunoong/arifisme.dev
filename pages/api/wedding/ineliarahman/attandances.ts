@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import dbConnect from '../../../../configs/mongodb.config'
 import Attandance from '../../../../models/wedding/attandance'
+import NextCors from '../../../../api/cors'
 
 const post = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -24,6 +25,11 @@ export default async function attandances(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  await NextCors(req, res, {
+    methods: ['POST'],
+    origin: '*',
+  })
+
   if (req.method === 'POST') return post(req, res)
   return res.status(404).json({ status: 'ERROR', message: 'Not Found' })
 }
