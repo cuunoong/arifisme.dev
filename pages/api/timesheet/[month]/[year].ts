@@ -148,7 +148,7 @@ export default async function index(req: NextApiRequest, res: NextApiResponse) {
 		const workbook = XLSX.utils.book_new();
 	
 		XLSX.utils.book_append_sheet(workbook, worksheet, date.format('MMMM YYYY'));
-		XLSX.utils.sheet_add_aoa(worksheet, [["DATE", "START TIME", "END TIME", "HOURS", "DESCRIPTIONS / ACTIVITIES", "PEOJECT" ]], { origin: "A1" });
+		XLSX.utils.sheet_add_aoa(worksheet, [["DATE", "START TIME", "END TIME", "HOURS", "DESCRIPTIONS / ACTIVITIES", "PROJECT" ]], { origin: "A1" });
 		
 		const buff = XLSX.write(workbook, { type: 'buffer', bookType: "xlsx"})
 		res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
