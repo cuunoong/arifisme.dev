@@ -2,6 +2,7 @@ import { Client } from '@notionhq/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { OK } from '../../../../api'
 import moment from 'moment'
+const XLSX = require("xlsx");
 
 const notion = new Client({ auth: process.env.NOTION_SECRET_KEY })
 const ACTION_DATABASE_ID = process.env.NOTION_ACTION_DATABASE_ID || ''
@@ -142,6 +143,16 @@ export default async function index(req: NextApiRequest, res: NextApiResponse) {
 			
 		}
 
+
+		const worksheet = XLSX.utils.json_to_sheet(activityList);
+		const workbook = XLSX.utils.book_new();
+	
+		XLSX.utils.book_append_sheet(workbook, worksheet, date.format('MMMM YYYY'));
+		
+		const buff = XLSX.write(workbook, { type: 'buffer', bookType: "xlsx"})
+		res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+		res.setHeader('Content-disposition', `attachment; filename=Timesheet ${date.format('MMMM YYYY')}.xlsx`)
+		res.send(buff)
     res.json(activityList)
   } catch (error) {}
 }
