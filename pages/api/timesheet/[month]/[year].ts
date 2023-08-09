@@ -21,27 +21,29 @@ export default async function index(req: NextApiRequest, res: NextApiResponse) {
     var nextCursor = undefined
 
     while (hasMore) {
-      const queryResponse = await notion.databases.query({
-        start_cursor: nextCursor,
-        sorts: [{ property: 'Tanggal pengerjaan', direction: 'ascending' }],
-        database_id: ACTION_DATABASE_ID,
-        filter: {
-          and: [
-            {
-              property: 'Tanggal pengerjaan',
-              date: {
-                after: firstDay,
-              },
-            },
-            {
-              property: 'Tanggal pengerjaan',
-              date: {
-                before: lastDay,
-              },
-            },
-          ],
-        },
-      })
+      const queryResponse = (
+				await notion.databases.query({
+					start_cursor: nextCursor,
+					sorts: [{ property: 'Tanggal pengerjaan', direction: 'ascending' }],
+					database_id: ACTION_DATABASE_ID,
+					filter: {
+						and: [
+							{
+								property: 'Tanggal pengerjaan',
+								date: {
+									after: firstDay,
+								},
+							},
+							{
+								property: 'Tanggal pengerjaan',
+								date: {
+									before: lastDay,
+								},
+							},
+						],
+					},
+				})
+			) as any
 
       for (var data of queryResponse.results) {
         var { properties } = data as any
