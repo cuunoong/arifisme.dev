@@ -14,6 +14,11 @@ module.exports = {
         destination: 'https://linktr.ee/cuunoong',
         permanent: false,
       },
+      {
+        source: '/timesheet/:slug*',
+        destination: '/api/timesheet/:slug*',
+        permanent: true
+      }
     ]
   },
 }
