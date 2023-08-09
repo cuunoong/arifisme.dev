@@ -59,7 +59,7 @@ export default async function index(req: NextApiRequest, res: NextApiResponse) {
             properties['Tanggal pengerjaan'].date.end == null
               ? moment(properties['Tanggal pengerjaan'].date.start)
               : moment(properties['Tanggal pengerjaan'].date.end),
-          description: properties['Action/Pekerjaan'].title
+          activities: properties['Action/Pekerjaan'].title
             .map((title: any) => title.plain_text)
             .join(', '),
           project: projects.join(', '),
@@ -89,20 +89,56 @@ export default async function index(req: NextApiRequest, res: NextApiResponse) {
       }
     })
 
-    var activityList = []
+    var activityListPerDate = []
 
     for (
-      let index = 0;
-      index <= lastDayActivityDate!.diff(firstDayActivityDate, 'day');
-      index++
+			let index = 0;
+			index <= lastDayActivityDate!.diff(firstDayActivityDate, 'day');
+			index++
     ) {
-      activityList.push({
-        date: firstDayActivityDate
-          .clone()
-          .add(index, 'd')
-          .format('DD-MMM-YYYY'),
+      const today = firstDayActivityDate
+				.clone()
+				.add(index, 'd');
+
+			const activity = result
+				.filter(
+					({startDate, endDate}) => {
+						return endDate == null 
+							? today.isSame(startDate)
+							: today.isBetween(startDate.clone().add(-1, 'd'), endDate.clone().add(1, 'd')) 
+				}).map(
+					({activities, project}) => 
+						(
+							{	activities, project }
+						)
+				)
+          
+      activityListPerDate.push({
+				date: today.format('DD-MMM-YYYY'),
+				activity
       })
     }
+
+		const activityList = []
+
+		for( const { activity: activities, date } of activityListPerDate) {
+			if(activities.length == 0)
+				continue;
+			
+			for(const activity of activities) {
+				activityList.push(
+					{
+						date, 
+						startTime: '08.00',
+						endTime: '17.00',
+						hours: '8 hours',
+						desctiotion: activity.activities,
+						project: activity.project
+					}
+				)
+			}
+			
+		}
 
     res.json(activityList)
   } catch (error) {}
