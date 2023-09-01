@@ -1,16 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-
+import Notion from '../../api/notion'
 import moment from 'moment'
-import Notion from '../../../../api/notion'
 const XLSX = require('xlsx')
 export default async function comments(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const month = req.query.month
-  const year = req.query.year
-
-  const date = moment(`${year}-${month}-01`)
+  const date = moment(`2023-08-01`)
   const firstDay = date.clone()
   const lastDay = date.clone().add(1, 'M').add(-1, 'day')
 
@@ -85,50 +81,52 @@ export default async function comments(
     })
   }
 
-  const activityList = []
+  return res.json(activityListPerDate)
 
-  for (const { activity: activities, date } of activityListPerDate) {
-    if (activities.length == 0) continue
+  // const activityList = []
 
-    for (const activity of activities) {
-      activityList.push({
-        date,
-        startTime: '08.00',
-        endTime: '17.00',
-        hours: '8 hours',
-        description: activity.activities,
-        project: activity.project,
-      })
-    }
-  }
+  // for (const { activity: activities, date } of activityListPerDate) {
+  //   if (activities.length == 0) continue
 
-  const worksheet = XLSX.utils.json_to_sheet(activityList)
-  const workbook = XLSX.utils.book_new()
+  //   for (const activity of activities) {
+  //     activityList.push({
+  //       date,
+  //       startTime: '08.00',
+  //       endTime: '17.00',
+  //       hours: '8 hours',
+  //       description: activity.activities,
+  //       project: activity.project,
+  //     })
+  //   }
+  // }
 
-  XLSX.utils.book_append_sheet(workbook, worksheet, date.format('MMMM YYYY'))
-  XLSX.utils.sheet_add_aoa(
-    worksheet,
-    [
-      [
-        'DATE',
-        'START TIME',
-        'END TIME',
-        'HOURS',
-        'DESCRIPTIONS / ACTIVITIES',
-        'PROJECT',
-      ],
-    ],
-    { origin: 'A1' }
-  )
+  // const worksheet = XLSX.utils.json_to_sheet(activityList)
+  // const workbook = XLSX.utils.book_new()
 
-  const buff = XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' })
-  res.setHeader(
-    'Content-Type',
-    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-  )
-  res.setHeader(
-    'Content-disposition',
-    `attachment; filename=Timesheet ${date.format('MMMM YYYY')}.xlsx`
-  )
-  res.send(buff)
+  // XLSX.utils.book_append_sheet(workbook, worksheet, date.format('MMMM YYYY'))
+  // XLSX.utils.sheet_add_aoa(
+  //   worksheet,
+  //   [
+  //     [
+  //       'DATE',
+  //       'START TIME',
+  //       'END TIME',
+  //       'HOURS',
+  //       'DESCRIPTIONS / ACTIVITIES',
+  //       'PROJECT',
+  //     ],
+  //   ],
+  //   { origin: 'A1' }
+  // )
+
+  // const buff = XLSX.write(workbook, { type: 'buffer', bookType: 'xlsx' })
+  // res.setHeader(
+  //   'Content-Type',
+  //   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+  // )
+  // res.setHeader(
+  //   'Content-disposition',
+  //   `attachment; filename=Timesheet ${date.format('MMMM YYYY')}.xlsx`
+  // )
+  // res.send(buff)
 }
