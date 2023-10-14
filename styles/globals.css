@@ -22,8 +22,8 @@ html.swagger #cursor {
   display: none;
 }
 
-.swager .microlight {
-  @apply selection:bg-white/25;
+.swagger .microlight {
+  @apply selection:bg-white/40;
 }
 
 body #__next {
