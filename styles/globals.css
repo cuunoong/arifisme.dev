@@ -22,6 +22,10 @@ html.swagger #cursor {
   display: none;
 }
 
+.swager .microlight {
+  @apply selection:bg-white/25;
+}
+
 body #__next {
   max-width: 100vw;
   overflow-x: hidden;
