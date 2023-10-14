@@ -13,6 +13,15 @@ html.dark {
   @apply bg-black;
 }
 
+html.swagger,
+html.swagger body {
+  @apply bg-white selection:bg-black/10;
+}
+
+html.swagger #cursor {
+  display: none;
+}
+
 body #__next {
   max-width: 100vw;
   overflow-x: hidden;

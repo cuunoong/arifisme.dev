@@ -20,10 +20,11 @@ export const useToken = async (
     user: IUser
   ) => Promise<any>
 ) => {
-  const token = (req.headers.authorization || req.query.token) as string
+  var token = (req.headers.authorization || req.query.token) as string
 
   if (!token) return ERROR(res, 'Token must be provided')
 
+  token = token.split(' ')[1]
   try {
     const { id } = jwt.verify(token, JWT_SECRET as string) as { id: string }
     await dbConnect()
