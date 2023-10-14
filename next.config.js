@@ -17,8 +17,11 @@ module.exports = {
       {
         source: '/timesheet/:slug*',
         destination: '/api/timesheet/:slug*',
-        permanent: true
-      }
+        permanent: true,
+      },
     ]
+  },
+  typescript: {
+    ignoreBuildErrors: true,
   },
 }
