@@ -21,9 +21,18 @@ export default async function index(req: NextApiRequest, res: NextApiResponse) {
 
     // Check if theres an user with requested email
     const user = await User.findOne({ email: data.email })
-    if (!user) return ERROR(res, { email: `Doesn't match` })
+    if (!user)
+      return ERROR(res, {
+        message: `Invalid email address`,
+        email: false,
+        password: false,
+      })
     if (!bcrypt.compareSync(data.password, user.password))
-      return ERROR(res, { password: `Doesn't match` })
+      return ERROR(res, {
+        message: `Invalid password`,
+        email: true,
+        password: false,
+      })
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET as string)
 
